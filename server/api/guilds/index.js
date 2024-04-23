@@ -1,7 +1,9 @@
 import { Router } from 'express'
 import { VoiceSession } from '../../bot/voicechannel.js'
-console.log('a')
+import { soundsRouter } from './sounds/index.js'
+
 export const guildRouter = new Router({ mergeParams: true })
+guildRouter.use('/sounds/', soundsRouter)
 
 guildRouter.get('/', (req, res) => {
 	const guildId = req.params.guildId
