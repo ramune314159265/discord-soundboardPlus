@@ -1,8 +1,8 @@
 import { entersState, AudioPlayerStatus, createAudioPlayer, joinVoiceChannel } from '@discordjs/voice'
 
-import { client } from '.'
+import { client } from './index.js'
 
-export class voiceSession {
+export class VoiceSession {
 	static guildVoices = new Map()
 	constructor(channelId) {
 		this.voiceChannel = client.channels.cache.get(channelId)
@@ -14,7 +14,7 @@ export class voiceSession {
 	}
 	connect() {
 		this.connection = joinVoiceChannel({
-			adapterCreator: this.voiceChannel.voiceAdapterCreator,
+			adapterCreator: this.voiceChannel.guild.voiceAdapterCreator,
 			channelId: this.voiceChannel.id,
 			guildId: this.voiceChannel.guild.id,
 			selfDeaf: true,
@@ -22,7 +22,7 @@ export class voiceSession {
 		})
 		this.player = createAudioPlayer()
 		this.connection.subscribe(this.player)
-		voiceSession.guildVoices.set(this.voiceChannel.guildId, this)
+		VoiceSession.guildVoices.set(this.voiceChannel.guildId, this)
 	}
 	async playResource(resource) {
 		if (!this.player) {
@@ -37,6 +37,6 @@ export class voiceSession {
 			return
 		}
 		this.connection.destroy()
-		voiceSession.guildVoices.delete(this.voiceChannel.guildId)
+		VoiceSession.guildVoices.delete(this.voiceChannel.guildId)
 	}
 }
