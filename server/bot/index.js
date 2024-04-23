@@ -4,6 +4,9 @@ import {
 	Partials,
 	ActivityType,
 } from 'discord.js'
+import dotenv from 'dotenv'
+
+dotenv.config({ path: "../.env" })
 
 export const client = new Client({
 	intents: [
