@@ -8,15 +8,19 @@ soundsRouter.get('/', (req, res) => {
 	res.json(SoundResource.guildAudios[req.params.guildId] ?? {})
 })
 
-soundsRouter.post('/', (req, res) => {
-	SoundResource.add(req.params.guildId, {
-		audioName: 'test',
-		audioEmoji: '😀'
+soundsRouter.post('/', async (req, res) => {
+	const audioFile = req.files.audio[0] ?? req.files.audio
+	const audioName = req.body.name
+	const audioEmoji = req.body.emoji
+	await SoundResource.add(req.params.guildId, {
+		audioName,
+		audioEmoji,
+		audioFile
 	})
 	res.status(200).json({
 		guildId: req.params.guildId,
-		name: 'test',
-		emoji: '😀'
+		name: audioName,
+		emoji: audioEmoji
 	})
 })
 

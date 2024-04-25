@@ -9,14 +9,17 @@ export class SoundResource {
 	static guildAudios = {}
 	static async add(guildId, {
 		audioName,
-		audioEmoji
+		audioEmoji,
+		audioFile
 	}) {
 		const audioHash = crypto.createHash('sha1').update(crypto.randomBytes(12).toString('hex')).digest('hex')
 		SoundResource.guildAudios[guildId] ??= {}
 		SoundResource.guildAudios[guildId][audioHash] = {}
 		SoundResource.guildAudios[guildId][audioHash].name = audioName
 		SoundResource.guildAudios[guildId][audioHash].audioEmoji = audioEmoji
-		writeJsonFile(path.join(import.meta.dirname, '../resources/resources.json'), SoundResource.guildAudios)
+		audioFile.mv(path.join(import.meta.dirname, `../resources/audio/${audioHash}.mp3`))
+		await writeJsonFile(path.join(import.meta.dirname, '../resources/resources.json'), SoundResource.guildAudios)
+		return audioHash
 	}
 	static get(guildId, audioHash) {
 		return new SoundResource(guildId, {
