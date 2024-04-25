@@ -1,4 +1,5 @@
 import express from "express"
+import fileUpload from "express-fileupload"
 import { apiMainRouter } from './api/index.js'
 
 export const app = express()
@@ -10,6 +11,7 @@ app.use(
 		extended: true,
 	})
 )
+app.use(fileUpload())
 app.use('/api/', apiMainRouter)
 import('./sdk/index.js')
 
