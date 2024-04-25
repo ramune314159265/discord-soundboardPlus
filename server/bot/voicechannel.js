@@ -31,6 +31,7 @@ export class VoiceSession {
 		this.player.play(resource)
 		await entersState(this.player, AudioPlayerStatus.Playing, 10 * 1000)
 		await entersState(this.player, AudioPlayerStatus.Idle, 10 * 1000)
+		this.player.stop()
 	}
 	disconnect() {
 		if (!this.connection) {

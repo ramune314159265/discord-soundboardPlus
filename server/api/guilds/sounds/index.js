@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { SoundResource } from '../../../bot/soundresource.js'
+import { VoiceSession } from '../../../bot/voicechannel.js'
 
 export const soundsRouter = Router({ mergeParams: true })
 
@@ -46,4 +47,19 @@ soundsRouter.delete('/', (req, res) => {
 	}
 	soundResource.remove()
 	res.status(204)
+})
+
+soundsRouter.post('/play/', (req, res) => {
+	if (!VoiceSession.guildVoices.get(req.params.guildId)) {
+		return res.status(400).json({
+			content: 'not joined'
+		})
+	}
+	const hash = '9a36182a8526c5a7a6a03ea4620f3ab29bde660e'
+	const soundResource = SoundResource.get(req.params.guildId, hash)
+	VoiceSession.guildVoices.get(req.params.guildId).playResource(soundResource.resource)
+	res.status(200).json({
+		guildId: req.params.guildId,
+		hash
+	})
 })
