@@ -1,4 +1,4 @@
-import { app } from '..'
+import { app } from '../index.js'
 
 app.post("/api/token", async (req, res) => {
 	const access_token = (await (await fetch(`https://discord.com/api/oauth2/token`, {

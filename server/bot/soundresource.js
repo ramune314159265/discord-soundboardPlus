@@ -18,6 +18,12 @@ export class SoundResource {
 		SoundResource.guildAudios[guildId][audioHash].audioEmoji = audioEmoji
 		writeJsonFile(path.join(import.meta.dirname, '../resources/resources.json'), SoundResource.guildAudios)
 	}
+	static get(guildId, audioHash) {
+		return new SoundResource(guildId, {
+			...SoundResource.guildAudios[guildId][audioHash],
+			audioHash
+		})
+	}
 	static {
 		(async () => {
 			SoundResource.guildAudios = await loadJsonFile(path.join(import.meta.dirname, '../resources/resources.json'))
@@ -28,7 +34,7 @@ export class SoundResource {
 		audioName,
 		audioEmoji
 	}) {
-		this.audioPath = path.join(import.meta.dirname, '../resources/audio/' + audioHash)
+		this.audioPath = path.join(import.meta.dirname, '../resources/audio/' + `${audioHash}.mp3`)
 		this.audioHash = audioHash
 		this.audioName = audioName
 		this.audioEmoji = audioEmoji
