@@ -9,7 +9,7 @@ soundsRouter.get('/', (req, res) => {
 })
 
 soundsRouter.post('/', async (req, res) => {
-	const audioFile = req.files.audio[0] ?? req.files.audio
+	const audioFile = req.files.audio.length ? req.files.audio[0] : req.files.audio
 	const audioName = req.body.name
 	const audioEmoji = req.body.emoji
 	await SoundResource.add(req.params.guildId, {
@@ -59,8 +59,13 @@ soundsRouter.post('/play/', (req, res) => {
 			content: 'not joined'
 		})
 	}
-	const hash = '9a36182a8526c5a7a6a03ea4620f3ab29bde660e'
+	const hash = req.query.hash
 	const soundResource = SoundResource.get(req.params.guildId, hash)
+	if (!soundResource) {
+		return res.status(404).json({
+			content: 'not found'
+		})
+	}
 	VoiceSession.guildVoices.get(req.params.guildId).playResource(soundResource.resource)
 	res.status(200).json({
 		guildId: req.params.guildId,

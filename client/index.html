@@ -9,9 +9,12 @@
 </head>
 
 <body>
-	<div id="app">
-		<h1>Hello, World!</h1>
-	</div>
+	<form action="/api/guilds/972328945141829672/sounds/" method="post" encType="multipart/form-data">
+		<p><input type="text" name="name" id="audio-name"></p>
+		<p><input type="text" name="emoji" id="audio-emoji"></p>
+		<p><input type="file" name="audio" id="audio-audio" accept="audio/*"></p>
+		<input type="submit" value="送信">
+	</form>
 	<script type="module" src="/main.js"></script>
 </body>
 
