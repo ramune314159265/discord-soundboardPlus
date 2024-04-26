@@ -4,7 +4,7 @@ import "./style.css"
 
 let auth
 
-const clientId = '1231928834610298950'
+const clientId = import.meta.env.VITE_DISCORD_CLIENT_ID
 
 const discordSdk = new DiscordSDK(clientId)
 
