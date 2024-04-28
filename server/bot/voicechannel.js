@@ -1,10 +1,12 @@
 import { AudioPlayerStatus, createAudioPlayer, joinVoiceChannel } from '@discordjs/voice'
+import { EventEmitter } from 'events'
 
 import { client } from './index.js'
 
-export class VoiceSession {
+export class VoiceSession extends EventEmitter {
 	static guildVoices = new Map()
 	constructor(channelId) {
+		super()
 		this.voiceChannel = client.channels.cache.get(channelId)
 		if (!this.voiceChannel.isVoiceBased) {
 			throw new Error('channel is not voice channel')
@@ -24,17 +26,21 @@ export class VoiceSession {
 		this.connection.subscribe(this.player)
 		VoiceSession.guildVoices.set(this.voiceChannel.guildId, this)
 	}
-	async playResource(resource) {
+	async playSoundResource(soundResource) {
 		if (!this.player) {
 			return
 		}
-		this.player.play(resource)
-		this.player.once('stateChange', (oldState, newState) => {
-			if (newState !== AudioPlayerStatus.Idle) {
+		this.player.play(soundResource.resource)
+		this.emit('soundPlayed', soundResource)
+		const stateChangeHandle = (oldState, newState) => {
+			if (newState.status !== AudioPlayerStatus.Idle) {
 				return
 			}
 			this.player.stop()
-		})
+			this.emit('soundStopped', soundResource)
+			this.player.removeListener('stateChange', stateChangeHandle)
+		}
+		this.player.on('stateChange', stateChangeHandle)
 	}
 	disconnect() {
 		if (!this.connection) {

@@ -46,7 +46,7 @@ soundsRouter.post('/:audioHash/play/', (req, res) => {
 			content: 'not found'
 		})
 	}
-	VoiceSession.guildVoices.get(req.params.guildId).playResource(soundResource.resource)
+	VoiceSession.guildVoices.get(req.params.guildId).playSoundResource(soundResource)
 	res.status(200).json({
 		guildId: req.params.guildId,
 		hash

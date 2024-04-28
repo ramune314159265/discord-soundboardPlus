@@ -14,6 +14,8 @@
 	--background-primary: #1e1f22;
 	--background-secondary: #2b2d31;
 	--accent-color: #646cff;
+	--green: #3ba55c;
+	--red: #ed4245;
 	--border-radius: 8px;
 
 	color-scheme: light dark;
@@ -141,6 +143,11 @@ soundboard-sound {
 	cursor: pointer;
 	-webkit-user-select: none;
 	user-select: none;
+}
+
+soundboard-sound.playing {
+	outline: solid 3px var(--green);
+	cursor: no-drop;
 }
 
 .soundsList {
