@@ -17,6 +17,7 @@ export class SoundListUI {
 				const soundElement = document.createElement('soundboard-sound')
 				soundElement.setAttribute('emoji', sound.audioEmoji)
 				soundElement.setAttribute('name', sound.name)
+				soundElement.dataset.id = id
 				this.component.appendChild(soundElement)
 				soundElement.addEventListener('click', () => {
 					fetch(`/api/guilds/${discordSdk.guildId}/sounds/${id}/play/`, { method: 'POST' })

@@ -6,7 +6,7 @@ export class SoundElement extends HTMLElement {
 		return ['emoji', 'name']
 	}
 	#set() {
-		console.log('a')
+		this.innerHTML = ''
 		this.appendChild(document.getElementById('soundUI').content.cloneNode(true))
 		this.querySelector('.soundEmoji').textContent = this.getAttribute('emoji')
 		this.querySelector('.soundName').textContent = this.getAttribute('name')

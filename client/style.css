@@ -129,3 +129,23 @@ main {
 	border-radius: 100%;
 }
 
+soundboard-sound {
+	display: flex;
+	width: 12rem;
+	height: 4rem;
+	padding: 8px;
+	background: var(--background-primary);
+	border-radius: var(--border-radius);
+	gap: 8px;
+	align-items: center;
+	cursor: pointer;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.soundsList {
+	display: flex;
+	padding: 8px;
+	flex-wrap: wrap;
+	gap: 16px;
+}
