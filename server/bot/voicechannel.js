@@ -1,4 +1,4 @@
-import { entersState, AudioPlayerStatus, createAudioPlayer, joinVoiceChannel } from '@discordjs/voice'
+import { AudioPlayerStatus, createAudioPlayer, joinVoiceChannel } from '@discordjs/voice'
 
 import { client } from './index.js'
 
@@ -29,9 +29,12 @@ export class VoiceSession {
 			return
 		}
 		this.player.play(resource)
-		await entersState(this.player, AudioPlayerStatus.Playing, 10 * 1000)
-		await entersState(this.player, AudioPlayerStatus.Idle, 10 * 1000)
-		this.player.stop()
+		this.player.once('stateChange', (oldState, newState) => {
+			if (newState !== AudioPlayerStatus.Idle) {
+				return
+			}
+			this.player.stop()
+		})
 	}
 	disconnect() {
 		if (!this.connection) {
