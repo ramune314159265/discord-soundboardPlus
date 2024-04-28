@@ -1,4 +1,5 @@
-import { auth, discordSdk } from './index.js'
+import { auth, discordSdk } from '.'
+import { SoundListUI } from './sounds/soundList'
 
 export const appInit = async () => {
 	try {
@@ -16,4 +17,10 @@ export const appInit = async () => {
 	} catch (e) {
 		console.error('can not get guild:' + e)
 	}
+
+	const guildStatus = (await fetch(`/api/guilds/${discordSdk.guildId}/`)).status
+	if (guildStatus === 404) {
+		await (await fetch(`/api/guilds/${discordSdk.guildId}/join?channelid=${discordSdk.channelId}`, { method: 'POST' })).json()
+	}
+	new SoundListUI().show(document.querySelector('main'))
 }

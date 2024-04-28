@@ -1,5 +1,6 @@
 import { DiscordSDK } from "@discord/embedded-app-sdk"
 import { appInit } from './init'
+import './sounds/buttonElement'
 
 export let auth
 
