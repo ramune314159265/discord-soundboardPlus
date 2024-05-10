@@ -1,9 +1,25 @@
 import { AudioPlayerStatus, createAudioPlayer, joinVoiceChannel } from '@discordjs/voice'
 import { EventEmitter } from 'events'
 
+import { Events } from 'discord.js'
 import { client } from './index.js'
 
 export class VoiceSession extends EventEmitter {
+	static {
+		client.on(Events.VoiceStateUpdate, (oldState, newState) => {
+			// 切断以外はスルー
+			if (!(newState.channelId === null && oldState.channelId !== null)) {
+				return
+			}
+			if (!VoiceSession.guildVoices.has(oldState.channel.guildId)) {
+				return
+			}
+			if (oldState.channel.members.size !== 1) {
+				return
+			}
+			VoiceSession.guildVoices.get(oldState.channel.guildId).disconnect()
+		})
+	}
 	static guildVoices = new Map()
 	constructor(channelId) {
 		super()
