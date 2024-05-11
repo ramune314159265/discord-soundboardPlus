@@ -2,6 +2,7 @@ import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -19,7 +20,9 @@ export default function Header(props) {
 							<CircularProgress size={'70%'} />
 						</Avatar>
 						<Typography variant="subtitle1" component="div">
-							{`${props.discordData.guildName} > #${props.discordData.channelName}`}
+							{props.discordData.guildName
+								? `${props.discordData.guildName} > #${props.discordData.channelName}`
+								: <Skeleton sx={{ width: '10rem' }} animation="wave" />}
 						</Typography>
 					</Stack>
 				</Toolbar>
