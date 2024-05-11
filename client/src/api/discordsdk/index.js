@@ -6,7 +6,7 @@ const clientId = import.meta.env.VITE_DISCORD_CLIENT_ID
 
 export const discordSdk = new DiscordSDK(clientId)
 
-const setupDiscordSdk = async () => {
+export const setupDiscordSdk = async () => {
 	await discordSdk.ready()
 	console.log("Discord SDK is ready")
 
@@ -40,7 +40,3 @@ const setupDiscordSdk = async () => {
 		throw new Error("Authenticate command failed")
 	}
 }
-
-setupDiscordSdk().then(() => {
-	console.log("Discord SDK is authenticated")
-})
