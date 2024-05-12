@@ -2,6 +2,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useState } from 'react'
 import './api/discordsdk/index'
 import { auth, discordSdk, setupDiscordSdk } from './api/discordsdk/index'
+import { joinVoiceChannel } from './api/discordsdk/join'
 import Header from './components/header'
 
 export default function App() {
@@ -32,6 +33,8 @@ export default function App() {
 				guildIcon: `https://cdn.discordapp.com/icons/${currentGuild.id}/${currentGuild.icon}.webp?size=32`,
 				channelName: channel.name
 			})
+
+			joinVoiceChannel()
 		}).catch(console.error)
 
 	return (
