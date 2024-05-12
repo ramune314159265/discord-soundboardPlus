@@ -12,16 +12,16 @@ export class Sounds extends EventEmitter2 {
 	}
 	async init() {
 		this.sounds = await (await fetch(`/api/guilds/${discordSdk.guildId}/sounds`)).json()
-		this.on('updated')
+		this.emit('updated')
 		this.wsEventListener = websocket.addEventListener('message', event => {
 			const data = JSON.parse(event.data)
 			switch (data.type) {
 				case 'sound_played': {
-					this.on('sound.played', data.hash)
+					this.emit('sound.played', data.hash)
 					break
 				}
 				case 'sound_stopped': {
-					this.on('sound.stopped', data.hash)
+					this.emit('sound.stopped', data.hash)
 					break
 				}
 			}
