@@ -6,7 +6,21 @@ import Typography from '@mui/material/Typography'
 
 export default function Sound(props) {
 	return (
-		<ButtonBase style={{ width: '15rem' }}>
+		<ButtonBase
+			style={{
+				width: '15rem'
+			}}
+			sx={{
+				bgcolor: '#272727',
+				borderRadius: 1,
+				'&.playing': {
+					outlineColor: 'success.main',
+					outlineStyle: 'solid',
+					outlineWidth: 'thin'
+				}
+			}}
+			className='playing'
+		>
 			<CardHeader
 				avatar={<Typography>{props.emoji}</Typography>}
 				title={props.name}
