@@ -4,6 +4,7 @@ import './api/discordsdk/index'
 import { auth, discordSdk, setupDiscordSdk } from './api/discordsdk/index'
 import { joinVoiceChannel } from './api/discordsdk/join'
 import Header from './components/header'
+import SoundsList from './components/soundsList'
 
 export default function App() {
 	const theme = createTheme({
@@ -41,6 +42,7 @@ export default function App() {
 		<>
 			<ThemeProvider theme={theme}>
 				<Header discordData={discordData}></Header>
+				<SoundsList></SoundsList>
 			</ThemeProvider >
 		</>
 	)

@@ -5,13 +5,13 @@ import { websocket } from './ws'
 export class Sounds extends EventEmitter2 {
 	constructor() {
 		super()
-		this.sounds = {}
+		this.list = {}
 		this.wsEventListener = 0
 
 		this.init()
 	}
 	async init() {
-		this.sounds = await (await fetch(`/api/guilds/${discordSdk.guildId}/sounds`)).json()
+		this.list = await (await fetch(`/api/guilds/${discordSdk.guildId}/sounds`)).json()
 		this.emit('updated')
 		this.wsEventListener = websocket.addEventListener('message', event => {
 			const data = JSON.parse(event.data)
@@ -26,5 +26,8 @@ export class Sounds extends EventEmitter2 {
 				}
 			}
 		})
+	}
+	async play(hash) {
+		await fetch(`/api/guilds/${discordSdk.guildId}/sounds/${hash}/play/`, { method: 'POST' })
 	}
 }
