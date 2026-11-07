@@ -1,16 +1,18 @@
 <!doctype html>
-<html lang="en">
-
-<head>
-	<meta charset="UTF-8" />
-	<link rel="icon" type="image/svg+xml" href="/vite.svg" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>サウンドボード+</title>
-</head>
-
-<body>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Soundboard</title>
+    <script>
+      // 描画前に端末のライト/ダーク設定を反映する (ちらつき防止。詳細は src/colorMode.js)
+      var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.classList.add(dark ? 'dark' : 'light')
+      document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
+    </script>
+  </head>
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-</body>
-
+  </body>
 </html>

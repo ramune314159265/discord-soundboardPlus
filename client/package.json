@@ -1,25 +1,25 @@
 {
-  "name": "getting-started-activity",
+  "name": "soundboard-client",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "vite": "^5.0.8"
+    "preview": "vite preview",
+    "test": "node --test \"test/**/*.test.js\""
   },
   "dependencies": {
-    "@discord/embedded-app-sdk": "^1.1.2",
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@mui/icons-material": "^5.15.17",
-    "@mui/material": "^5.15.17",
-    "@vitejs/plugin-react-swc": "^3.6.0",
-    "eventemitter2": "^6.4.9",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "@chakra-ui/react": "^3.37.0",
+    "@discord/embedded-app-sdk": "^2.5.0",
+    "@emotion/react": "^11.14.0",
+    "jotai": "^3.0.1",
+    "opusscript": "^0.1.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "vite": "^8.3.3"
   }
 }
